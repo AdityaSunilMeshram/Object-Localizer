@@ -1,3 +1,4 @@
+import shutil
 import numpy
 import pandas as pd
 import tensorflow as tf
@@ -94,7 +95,7 @@ def neural_network(input_shape=(480,640,3),output_size=5):
 
 model=neural_network()
 model.compile(optimizer='adam',loss='categorial_crossentropy',metrics=['accuracy'])
-model.fit(X_train,Y_train,epochs=20,batch_size=512)
+model.fit(X_train,Y_train,epochs=20,batch_size=minibatch_size)
 preds=model.evaluate(X_train,Y_train)
 print("Training Loss: "+str(preds[0]))
 print("Training Accuracy: "+str(preds[1]))
@@ -116,5 +117,6 @@ def NonMaxSupression(boxes,max_boxes=1,iou_threshold=0.5):
     boxes=K.gather(boxes,nms)
     return boxes
 
-def eval()
-'''
+(boxes,scores)=filter_boxes(model[:,:,:,0],model[:,:,:,1:4])
+boxes=NonMaxSupression(boxes)
+print(boxes)
